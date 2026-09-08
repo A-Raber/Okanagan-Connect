@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OkanaganConnect — Events</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home events-page">
+  <div class="home-shell">
+    <header class="home-header">
+      <div>
+        <h1 class="home-title">Okanagan Connect</h1>
+        <p class="home-tagline">Discover curated events across the valley.</p>
+      </div>
+<nav class="home-nav">
+  <!-- Always visible -->
+  <a href="index.html" id="nav-home">Home</a>
+  <a href="events.html" id="nav-events">Events</a>
+
+  <!-- Role-specific links -->
+  <a href="host-dashboard.html" id="nav-host" style="display:none;">Host</a>
+  <a href="vendor-dashboard.html" id="nav-vendor" style="display:none;">Vendor</a>
+  <a href="admin.html" id="nav-admin" style="display:none;">Admin</a>
+
+  <!-- Login/Signup buttons (hidden when logged in) -->
+  <button class="home-nav-btn is-dark" type="button" id="login-btn" data-login-open>Login</button>
+
+  <!-- User dropdown (shown when logged in) -->
+  <div class="user-dropdown" id="user-dropdown" style="display:none;">
+    <button class="home-nav-btn is-primary" id="user-btn-toggle">
+      <span id="user-name">Welcome</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="user-dropdown-menu" id="user-dropdown-menu">
+      <button class="user-dropdown-item" id="settings-trigger">Settings</button>
+      <div class="user-dropdown-divider"></div>
+      <button class="user-dropdown-item" id="logout-trigger">Logout</button>
+    </div>
+  </div>
+  <a class="home-nav-btn is-primary" id="user-btn" href="register.html">Sign Up</a>
+</nav>
+    </header>
+
+    <section class="events-hero" role="search">
+      <div class="events-hero-top">
+        <div class="events-hero-copy">
+          <h2>All Events</h2>
+          <p>Filter, search, and discover what’s happening near you.</p>
+        </div>
+        <p class="events-summary">Showing <span data-events-count>0</span> events</p>
+      </div>
+
+      <div class="home-chips events-chips">
+        <button class="home-chip" type="button" data-events-chip="Today">Today</button>
+        <button class="home-chip" type="button" data-events-chip="Free">Free</button>
+        <button class="home-chip" type="button" data-events-chip="Music">Music</button>
+        <button class="home-chip" type="button" data-events-chip="Outdoors">Outdoors</button>
+        <button class="home-chip" type="button" data-events-chip="Workshop">Workshop</button>
+      </div>
+
+      <form class="events-filters" data-events-filters>
+        <div class="events-controls">
+          <div class="home-search events-search">
+            <input type="search" placeholder="Search events" aria-label="Search events" data-events-search />
+            <button type="submit">Search</button>
+          </div>
+          <div class="events-selects">
+            <label class="events-select">
+              <span>Category</span>
+              <select data-events-category>
+                <option value="all">All categories</option>
+                <option value="community">Community</option>
+                <option value="food">Food &amp; Drink</option>
+                <option value="music">Music</option>
+                <option value="tech">Tech</option>
+                <option value="wellness">Wellness</option>
+                <option value="outdoors">Outdoors</option>
+              </select>
+            </label>
+            <label class="events-select">
+              <span>Location</span>
+              <select data-events-location>
+                <option value="all">All locations</option>
+                <option value="campus">Campus</option>
+                <option value="downtown">Downtown</option>
+                <option value="lakeside">Lakeside</option>
+                <option value="waterfront">Waterfront</option>
+                <option value="outdoors">Outdoors</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <div class="home-columns">
+      <main class="home-main">
+        <section class="home-section events-my-events">
+          <div class="events-my-header">
+            <div>
+              <h2>My Events</h2>
+              <p>Hand-picked from the events you RSVP&rsquo;d to and saved.</p>
+            </div>
+            <a class="events-manage" href="login.html">Manage RSVPs</a>
+          </div>
+          <div class="events-my-row">
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-trigger
+              data-event-title="Research Poster Showcase"
+              data-event-category="community"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 4, 2026 · 4:30 PM"
+              data-event-cost="Free — RSVP confirmed"
+              data-event-location-detail="Innovation Theatre"
+              data-event-description="Explore cross-department research, support your peers, and enjoy networking with faculty and industry guests."
+              data-event-image="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=80">
+              <h3>Research Poster Showcase</h3>
+              <p>March 4 · Innovation Theatre</p>
+              <button class="home-rsvp" type="button">Manage RSVP</button>
+            </article>
+
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-trigger
+              data-event-title="Sunrise Run Club"
+              data-event-category="wellness"
+              data-event-location="outdoors"
+              data-event-location-key="outdoors"
+              data-event-time="March 6, 2026 · 6:30 AM"
+              data-event-cost="Free — RSVP confirmed"
+              data-event-location-detail="Knox Mountain Trailhead"
+              data-event-description="Join a paced 5K followed by stretch and smoothie samples along the lookout. Bring layers for the cool start."
+              data-event-image="https://images.unsplash.com/photo-1545243424-0ce743321e11?auto=format&fit=crop&w=900&q=80">
+              <h3>Sunrise Run Club</h3>
+              <p>March 6 · Knox Mountain Trail</p>
+              <button class="home-rsvp" type="button">Manage RSVP</button>
+            </article>
+
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-trigger
+              data-event-title="Vendor Collaboration Mixer"
+              data-event-category="community"
+              data-event-location="downtown"
+              data-event-location-key="downtown"
+              data-event-time="March 12, 2026 · 5:30 PM"
+              data-event-cost="$10 — RSVP confirmed"
+              data-event-location-detail="Downtown Innovation Hub"
+              data-event-description="Connect with campus hosts, share service menus, and lock in spring partnerships over appetizers."
+              data-event-image="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80">
+              <h3>Vendor Collaboration Mixer</h3>
+              <p>March 12 · Innovation Hub</p>
+              <button class="home-rsvp" type="button">Manage RSVP</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="home-section events-featured" data-events-collection>
+          <h2><br>Featured Spotlight</h2>
+          <article class="event-card is-featured" role="button" tabindex="0" data-event-trigger data-event-card
+            data-event-title="Sunset Soirée at the Terrace"
+            data-event-category="food"
+            data-event-location="lakeside"
+            data-event-location-key="lakeside"
+            data-event-time="March 22, 2026 · 6:30 PM"
+            data-event-cost="$45 • Includes tasting menu"
+            data-event-location-detail="Mission Hill Terrace"
+            data-event-description="Celebrate spring with a curated tasting flight, live jazz, and panoramic views of the valley. Dress cocktail chic and be ready for sunset photo ops."
+            data-event-image="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="Guests enjoying an outdoor sunset dinner with string lights" />
+            <div class="event-card-body">
+              <span class="badge">Featured</span>
+              <h3>Sunset Soirée at the Terrace</h3>
+              <div class="events-meta-row">
+                <span>Mission Hill Terrace</span>
+                <span class="events-chip">Fri • 6:30pm</span>
+              </div>
+              <p>Wine tasting, live jazz, chef-paired small plates.</p>
+              <button class="home-rsvp" type="button">RSVP</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="home-section events-nearby" data-events-collection>
+          <h2><br>Events Near You</h2>
+          <div class="home-events-grid">
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="UBCO Games Club Meeting"
+              data-event-category="community"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 8, 2026 · 7:00 PM"
+              data-event-cost="Free"
+              data-event-location-detail="UBCO Fipke 103"
+              data-event-description="Weekly meetup for board and tabletop gamers. Bring your favourite games, meet new players, and enjoy light snacks provided by the club."
+              data-event-image="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=600&q=80" alt="Board game pieces" />
+              <div class="event-card-body">
+                <h3>UBCO Games Club Meeting</h3>
+                <div class="events-meta-row">
+                  <span>UBCO Fipke 103</span>
+                  <span class="events-chip">Mon • 7pm</span>
+                </div>
+                <p>Weekly meetup for board and tabletop gamers. Bring your favourite games, meet new players, and enjoy light snacks provided by the club.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Street Eats Festival"
+              data-event-category="food"
+              data-event-location="downtown"
+              data-event-location-key="downtown"
+              data-event-time="March 9, 2026 · 5:00 PM"
+              data-event-cost="$5 entry • Vendors priced individually"
+              data-event-location-detail="Waterfront Promenade"
+              data-event-description="Taste bites from 20+ food trucks, sip craft sodas, and enjoy busker performances all evening. Family friendly."
+              data-event-image="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=600&q=80" alt="Food truck festival at night" />
+              <div class="event-card-body">
+                <h3>Street Eats Festival</h3>
+                <div class="events-meta-row">
+                  <span>Waterfront Promenade</span>
+                  <span class="events-chip">Sat • 5pm</span>
+                </div>
+                <p>Food trucks, craft sodas, and live busker performances.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Tech Talk: AI in Health"
+              data-event-category="tech"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 14, 2026 · 2:00 PM"
+              data-event-cost="Free • Registration required"
+              data-event-location-detail="Innovation Theatre"
+              data-event-description="Hear from leading researchers on responsible AI in healthcare, followed by Q&A and industry networking."
+              data-event-image="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=600&q=80" alt="Conference audience" />
+              <div class="event-card-body">
+                <h3>Tech Talk: AI in Health</h3>
+                <div class="events-meta-row">
+                  <span>Lecture Hall B</span>
+                  <span class="events-chip">Thu • 2pm</span>
+                </div>
+                <p>Insights from startups and research labs plus networking.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Morning Mindfulness Yoga"
+              data-event-category="wellness"
+              data-event-location="outdoors"
+              data-event-location-key="outdoors"
+              data-event-time="March 18, 2026 · 8:00 AM"
+              data-event-cost="Donation based"
+              data-event-location-detail="Gyro Beach Park"
+              data-event-description="Set your intention with a guided vinyasa session beside the water. Bring your own mat and layers for sunrise."
+              data-event-image="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80" alt="Outdoor sunrise yoga" />
+              <div class="event-card-body">
+                <h3>Morning Mindfulness Yoga</h3>
+                <div class="events-meta-row">
+                  <span>Gyro Beach</span>
+                  <span class="events-chip">Tue • 8am</span>
+                </div>
+                <p>Guided sunrise flow beside the water. Bring your own mat.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Innovation Showcase"
+              data-event-category="tech"
+              data-event-location="downtown"
+              data-event-location-key="downtown"
+              data-event-time="March 24, 2026 · 4:00 PM"
+              data-event-cost="Free — RSVP required"
+              data-event-location-detail="Downtown Innovation Hub"
+              data-event-description="Pitch night featuring emerging founders, prototype demos, and judges feedback."
+              data-event-image="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=600&q=80" alt="Speaker presenting to an engaged audience" />
+              <div class="event-card-body">
+                <h3>Innovation Showcase</h3>
+                <div class="events-meta-row">
+                  <span>Innovation Hub</span>
+                  <span class="events-chip">Fri • 4pm</span>
+                </div>
+                <p>Founder pitches, prototype demos, and investor Q&amp;A.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+
+            <article class="event-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Lakeside Sunrise Paddle"
+              data-event-category="outdoors"
+              data-event-location="waterfront"
+              data-event-location-key="waterfront"
+              data-event-time="April 2, 2026 · 6:00 AM"
+              data-event-cost="$25 • Includes board rental"
+              data-event-location-detail="Gyro Beach Launch"
+              data-event-description="Welcome the day with a guided stand-up paddle along the shoreline. Warm drinks and pastries served post-session."
+              data-event-image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80" alt="Paddle boarders at sunrise on the lake" />
+              <div class="event-card-body">
+                <h3>Lakeside Sunrise Paddle</h3>
+                <div class="events-meta-row">
+                  <span>Gyro Beach Launch</span>
+                  <span class="events-chip">Thu • 6am</span>
+                </div>
+                <p>Guided stand-up paddle with warm drinks afterwards.</p>
+                <button class="home-rsvp" type="button">RSVP</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="home-section events-upcoming" data-events-collection>
+          <h2><br>Upcoming Events</h2>
+          <div class="events-upcoming-list">
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Study Jam &amp; Snacks"
+              data-event-category="community"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 10, 2026 · 6:00 PM"
+              data-event-cost="Free — RSVP required"
+              data-event-location-detail="Learning Lab"
+              data-event-description="Bring your study group for themed breakout rooms, tutor drop-ins, and fuel-up snack stations until late."
+              data-event-image="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80">
+              <h3>Study Jam &amp; Snacks</h3>
+              <p>March 10 · Learning Lab</p>
+              <button class="home-rsvp" type="button">RSVP</button>
+            </article>
+
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Career Connections Fair"
+              data-event-category="community"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 15, 2026 · 11:00 AM"
+              data-event-cost="Free — RSVP recommended"
+              data-event-location-detail="Student Centre Atrium"
+              data-event-description="Meet 40+ employers, polish your resume with drop-in coaching, and attend mini-panels on internships."
+              data-event-image="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80">
+              <h3>Career Connections Fair</h3>
+              <p>March 15 · Student Centre</p>
+              <button class="home-rsvp" type="button">RSVP</button>
+            </article>
+
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Open Mic Night"
+              data-event-category="music"
+              data-event-location="campus"
+              data-event-location-key="campus"
+              data-event-time="March 17, 2026 · 8:00 PM"
+              data-event-cost="Free — RSVP required"
+              data-event-location-detail="Campus Café Stage"
+              data-event-description="Grab the mic for acoustic sets, spoken word, or stand-up. Complimentary hot cocoa bar for performers."
+              data-event-image="https://images.unsplash.com/photo-1515706886584-d9e5f80d1f04?auto=format&fit=crop&w=900&q=80">
+              <h3>Open Mic Night</h3>
+              <p>March 17 · Campus Café</p>
+              <button class="home-rsvp" type="button">RSVP</button>
+            </article>
+
+            <article class="home-upcoming-card" role="button" tabindex="0" data-event-card data-event-trigger
+              data-event-title="Vendor Meetup Live"
+              data-event-category="community"
+              data-event-location="downtown"
+              data-event-location-key="downtown"
+              data-event-time="March 18, 2026 · 3:00 PM"
+              data-event-cost="$12 — RSVP required"
+              data-event-location-detail="Innovation Hub Loft"
+              data-event-description="Speed networking between campus hosts and local vendors featuring panel Q&A and contract clinics."
+              data-event-image="https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&w=900&q=80">
+              <h3>Vendor Meetup Live</h3>
+              <p>March 18 · Innovation Hub</p>
+              <button class="home-rsvp" type="button">RSVP</button>
+            </article>
+          </div>
+        </section>
+
+        <p class="events-empty" data-events-empty hidden>No events match those filters yet. Try adjusting your search.</p>
+        <p class="events-footnote">Showing sample events &mdash; connect the backend feed to populate real listings.</p>
+      </main>
+
+      <aside class="home-aside">
+  <div class="home-photo" role="img" aria-label="Okanagan lake and mountains"></div>
+        <div class="home-cta">
+          <h3>Host an event</h3>
+          <p>Share your idea, invite vendors, and manage RSVPs in one dashboard.</p>
+          <a class="home-cta-link" href="host-dashboard.html">Start Hosting</a>
+          <p class="home-cta-footnote"><a href="register.html">Create a host account</a></p>
+        </div>
+        <div class="home-cta">
+          <h3>Vendor ready?</h3>
+          <p>Promote your services and connect with campus events.</p>
+          <a class="home-cta-link" href="vendor-dashboard.html">Vendor Hub</a>
+          <p class="home-cta-footnote"><a href="register.html">Apply to join</a></p>
+        </div>
+        <div class="home-note">
+          <h3>Filter tips</h3>
+          <ul>
+            <li>Stack search, category, and location to refine results.</li>
+            <li>Clear the search box to browse every listing again.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<div class="login-modal" id="login-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+    <button class="login-modal__close" type="button" aria-label="Close login form" data-login-close>&times;</button>
+    <div class="login-modal__content">
+      <h2 class="login-title" id="login-modal-title">Okanagan Connect</h2>
+
+      <form id="login-form" class="login-form" novalidate>
+        <label class="login-label" for="modal-email">Email</label>
+        <input id="modal-email" class="login-input" name="email" type="email" placeholder="Enter your email" />
+
+        <label class="login-label" for="modal-password">Password</label>
+        <input id="modal-password" class="login-input" name="password" type="password" placeholder="Enter your password" />
+
+        <div id="login-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+        <div class="login-actions">
+          <button class="login-btn is-primary" type="submit">Login</button>
+          <button class="login-btn" type="button" onclick="window.location.href='register.html'">Signup</button>
+        </div>
+        <button class="login-btn is-secondary" type="button">Forgot Password</button>
+      </form>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+    </div>
+    <div class="login-modal__image" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="login-modal" id="settings-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title" style="max-width: 500px;">
+    <button class="login-modal__close" type="button" aria-label="Close settings" data-settings-close>&times;</button>
+    <div class="login-modal__content" style="padding: 48px 40px;">
+      <h2 class="login-title" id="settings-modal-title">Account Settings</h2>
+
+      <!-- Change Password Section -->
+      <div class="settings-section">
+        <h3>Change Password</h3>
+        <form id="change-password-form" class="login-form" novalidate>
+          <div class="settings-field-group">
+            <label class="login-label" for="current-password">Current Password</label>
+            <input id="current-password" class="login-input" type="password" placeholder="Enter current password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="new-password">New Password</label>
+            <input id="new-password" class="login-input" type="password" placeholder="Enter new password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="confirm-new-password">Confirm New Password</label>
+            <input id="confirm-new-password" class="login-input" type="password" placeholder="Re-enter new password" required />
+          </div>
+
+          <div id="password-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+          <div class="login-actions" style="margin-top: 16px;">
+            <button class="login-btn is-primary" type="submit">Update Password</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <!-- Delete Account Section -->
+      <div class="settings-danger-zone">
+        <h3>Delete Account</h3>
+        <p>Once you delete your account, there is no going back. Please be certain.</p>
+        <div id="delete-account-message" style="color: red; font-size: 13px; margin-bottom: 12px;"></div>
+        <button class="login-btn" id="delete-account-btn" style="background: #ef4444; width: 100%;">Delete Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="login-modal" id="confirmation-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="confirmation-modal-title" style="margin-bottom: 16px;">Confirm Action</h2>
+      <p id="confirmation-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn" id="confirmation-cancel" style="background: #e4e7eb;">Cancel</button>
+        <button class="login-btn is-primary" id="confirmation-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="login-modal" id="success-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="success-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="success-modal-title" style="margin-bottom: 16px; color: #2d67d1;">Success</h2>
+      <p id="success-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn is-primary" id="success-ok">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // --- Modal open/close ---
+  const modal = document.getElementById('login-modal');
+  if(!modal) return;
+
+  const openers = document.querySelectorAll('[data-login-open]');
+  const closers = modal.querySelectorAll('[data-login-close]');
+  let lastFocused = null;
+
+  const openModal = () => {
+    lastFocused = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const focusTarget = modal.querySelector('#modal-email');
+    if(focusTarget) focusTarget.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if(lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  openers.forEach(btn => btn.addEventListener('click', openModal));
+  closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+  // --- Form submission ---
+  const form = document.getElementById('login-form');
+  const msg = document.getElementById('login-message');
+  if(!form || !msg) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    msg.textContent = '';
+
+    const email = document.getElementById('modal-email').value.trim();
+    const password = document.getElementById('modal-password').value;
+
+    if(!email || !password){
+      msg.textContent = 'Please enter both email and password.';
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if(!res.ok){
+        msg.textContent = res.status === 401 ? 'Invalid email or password.' : 'Login failed. Please try again.';
+        return;
+      }
+
+      // Login successful → redirect
+
+      const data = await res.json();
+      localStorage.setItem('currentUser', JSON.stringify(data));
+      updateNav();
+      document.getElementById('login-modal').classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      window.location.href = 'events.html';
+
+    } catch(err){
+      console.error(err);
+      msg.textContent = 'Network error. Please try again.';
+    }
+  });
+})();
+</script>
+<script>
+// Custom confirmation modal
+function showConfirmation(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('confirmation-modal');
+    const messageEl = document.getElementById('confirmation-message');
+    const confirmBtn = document.getElementById('confirmation-confirm');
+    const cancelBtn = document.getElementById('confirmation-cancel');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleConfirm = () => {
+      cleanup();
+      resolve(true);
+    };
+    
+    const handleCancel = () => {
+      cleanup();
+      resolve(false);
+    };
+    
+    const cleanup = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      cancelBtn.removeEventListener('click', handleCancel);
+    };
+    
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+  });
+}
+
+// Custom success modal
+function showSuccess(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('success-modal');
+    const messageEl = document.getElementById('success-message');
+    const okBtn = document.getElementById('success-ok');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleOk = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      okBtn.removeEventListener('click', handleOk);
+      resolve();
+    };
+    
+    okBtn.addEventListener('click', handleOk);
+  });
+}
+
+function updateNav() {
+  const userBtn = document.getElementById('user-btn');
+  const userDropdown = document.getElementById('user-dropdown');
+  const userNameSpan = document.getElementById('user-name');
+  const loginBtn = document.querySelector('[data-login-open]');
+  const hostLink = document.getElementById('nav-host');
+  const vendorLink = document.getElementById('nav-vendor');
+  const adminLink = document.getElementById('nav-admin');
+  const homeLink = document.getElementById('nav-home');
+  const eventsLink = document.getElementById('nav-events');
+  
+  const userData = localStorage.getItem('currentUser');
+  const onEventsPage = document.body.classList.contains('events-page');
+
+  if (userData) {
+    const user = JSON.parse(userData);
+    
+    // Hide signup button, show dropdown
+    userBtn.style.display = 'none';
+    userDropdown.style.display = 'inline-block';
+    userNameSpan.textContent = `Welcome, ${user.name}`;
+    if (loginBtn) loginBtn.style.display = 'none';
+
+    const role = user.role.toLowerCase();
+
+    // Show/hide role-specific buttons
+    hostLink.style.display = role === 'host' ? 'inline-block' : 'none';
+    vendorLink.style.display = role === 'vendor' ? 'inline-block' : 'none';
+    if (adminLink) adminLink.style.display = role === 'admin' ? 'inline-block' : 'none';
+    homeLink.style.display = 'inline-block';
+    eventsLink.style.display = onEventsPage ? 'none' : 'inline-block';
+
+  } else {
+    // Logged out state
+    userBtn.style.display = 'inline-block';
+    userBtn.textContent = 'Sign Up';
+    userBtn.href = 'register.html';
+    userDropdown.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'inline-block';
+    hostLink.style.display = 'none';
+    vendorLink.style.display = 'none';
+    if (adminLink) adminLink.style.display = 'none';
+    homeLink.style.display = 'inline-block';
+    eventsLink.style.display = onEventsPage ? 'none' : 'inline-block';
+  }
+}
+
+// Dropdown toggle
+(function() {
+  const toggleBtn = document.getElementById('user-btn-toggle');
+  const menu = document.getElementById('user-dropdown-menu');
+  const settingsTrigger = document.getElementById('settings-trigger');
+  const logoutTrigger = document.getElementById('logout-trigger');
+
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('is-open');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+    });
+
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  if (settingsTrigger) {
+    settingsTrigger.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      const settingsModal = document.getElementById('settings-modal');
+      if (settingsModal) {
+        settingsModal.classList.add('is-open');
+        settingsModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      }
+    });
+  }
+
+  if (logoutTrigger) {
+    logoutTrigger.addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'index.html';
+    });
+  }
+})();
+
+// Settings modal logic
+(function() {
+  const modal = document.getElementById('settings-modal');
+  if (!modal) return;
+
+  const closers = modal.querySelectorAll('[data-settings-close]');
+  closers.forEach(btn => btn.addEventListener('click', () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }));
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Change password form
+  const passwordForm = document.getElementById('change-password-form');
+  const passwordMsg = document.getElementById('password-message');
+
+  if (passwordForm && passwordMsg) {
+    passwordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      passwordMsg.textContent = '';
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-new-password').value;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        passwordMsg.textContent = 'All fields are required.';
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        passwordMsg.textContent = 'New passwords do not match.';
+        return;
+      }
+
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        passwordMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      try {
+        const res = await fetch(`/api/user/${user.id}/password`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            current_password: currentPassword,
+            new_password: newPassword
+          })
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          passwordMsg.textContent = errorData.detail || 'Failed to update password.';
+          return;
+        }
+
+        passwordMsg.style.color = 'green';
+        passwordMsg.textContent = 'Password updated successfully!';
+        passwordForm.reset();
+
+        setTimeout(() => {
+          passwordMsg.textContent = '';
+          passwordMsg.style.color = 'red';
+        }, 3000);
+
+      } catch (err) {
+        console.error(err);
+        passwordMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+
+  // Delete account
+  const deleteBtn = document.getElementById('delete-account-btn');
+  const deleteMsg = document.getElementById('delete-account-message');
+
+  if (deleteBtn && deleteMsg) {
+    deleteBtn.addEventListener('click', async () => {
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        deleteMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      // Check if user can delete account
+      try {
+        const checkRes = await fetch(`/api/user/${user.id}/can-delete`);
+        const checkData = await checkRes.json();
+
+        if (!checkData.can_delete) {
+          deleteMsg.textContent = checkData.reason || 'Cannot delete account.';
+          return;
+        }
+
+        // Confirm deletion
+        const confirmed = await showConfirmation('Are you sure you want to delete your account? This action cannot be undone.');
+        if (!confirmed) {
+          return;
+        }
+
+        const deleteRes = await fetch(`/api/user/${user.id}`, {
+          method: 'DELETE'
+        });
+
+        if (!deleteRes.ok) {
+          const errorData = await deleteRes.json();
+          deleteMsg.textContent = errorData.detail || 'Failed to delete account.';
+          return;
+        }
+
+        // Logout and redirect
+        localStorage.removeItem('currentUser');
+        await showSuccess('Account deleted successfully.');
+        window.location.href = 'index.html';
+
+      } catch (err) {
+        console.error(err);
+        deleteMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+})();
+
+updateNav();
+</script>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+      </div>
+      <div class="login-modal__image" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="event-modal" id="event-modal" aria-hidden="true">
+    <div class="event-modal__panel" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+      <button class="event-modal__close" type="button" aria-label="Close event details" data-event-close>&times;</button>
+      <div class="event-modal__image" data-event-image aria-hidden="true"></div>
+      <div class="event-modal__content">
+        <h3 class="event-modal__title" id="event-modal-title">Event Title</h3>
+        <div class="event-modal__meta">
+          <p><strong>Time:</strong> <span data-event-time>–</span></p>
+          <p><strong>Cost:</strong> <span data-event-cost>–</span></p>
+          <p><strong>Location:</strong> <span data-event-location>–</span></p>
+        </div>
+        <p class="event-modal__description" data-event-description>Event description placeholder.</p>
+        <button class="event-modal__cta" type="button" data-event-cta>RSVP</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('login-modal');
+      if(!modal) return;
+      const openers = document.querySelectorAll('[data-login-open]');
+      const closers = modal.querySelectorAll('[data-login-close]');
+      if(!openers.length) return;
+      let lastFocused = null;
+
+      const openModal = () => {
+        lastFocused = document.activeElement;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.classList.add('modal-open');
+        const focusTarget = modal.querySelector('#modal-email');
+        if(focusTarget){
+          focusTarget.focus();
+        }
+      };
+
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.classList.remove('modal-open');
+        if(lastFocused && typeof lastFocused.focus === 'function'){
+          lastFocused.focus();
+        }
+      };
+
+      openers.forEach(btn => btn.addEventListener('click', openModal));
+      closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+      modal.addEventListener('click', (event) => {
+        if(event.target === modal){
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if(event.key === 'Escape' && modal.classList.contains('is-open')){
+          closeModal();
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      const form = document.querySelector('[data-events-filters]');
+      if(!form) return;
+
+      const searchInput = form.querySelector('[data-events-search]');
+      const categorySelect = form.querySelector('[data-events-category]');
+      const locationSelect = form.querySelector('[data-events-location]');
+      const cards = Array.from(document.querySelectorAll('[data-events-collection] [data-event-card]'));
+      const emptyState = document.querySelector('[data-events-empty]');
+      const countEl = document.querySelector('[data-events-count]');
+      const chipButtons = document.querySelectorAll('[data-events-chip]');
+
+      const normalize = (value) => (value || '').toLowerCase().trim();
+
+      const applyFilters = () => {
+        const query = normalize(searchInput?.value);
+        const category = (categorySelect?.value || 'all');
+        const location = (locationSelect?.value || 'all');
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const text = `${card.dataset.eventTitle || ''} ${card.dataset.eventDescription || ''} ${card.dataset.eventLocationDetail || ''}`.toLowerCase();
+          const cardCategory = card.dataset.eventCategory || 'all';
+          const cardLocation = card.dataset.eventLocationKey || card.dataset.eventLocation || 'all';
+
+          const matchesQuery = !query || text.includes(query);
+          const matchesCategory = category === 'all' || cardCategory === category;
+          const matchesLocation = location === 'all' || cardLocation === location;
+
+          const show = matchesQuery && matchesCategory && matchesLocation;
+          card.classList.toggle('is-hidden', !show);
+          if(show) visible += 1;
+        });
+
+        if(emptyState){
+          emptyState.hidden = visible !== 0;
+        }
+        if(countEl){
+          countEl.textContent = visible;
+        }
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        applyFilters();
+      });
+
+      searchInput?.addEventListener('input', applyFilters);
+      categorySelect?.addEventListener('change', applyFilters);
+      locationSelect?.addEventListener('change', applyFilters);
+
+      chipButtons.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const value = chip.dataset.eventsChip || '';
+          if(searchInput){
+            searchInput.value = value;
+            searchInput.focus();
+          }
+          applyFilters();
+        });
+      });
+
+      applyFilters();
+    })();
+  </script>
+
+  <script>
+    (function(){
+      if(typeof window.__attachEventModal !== 'function'){
+        window.__attachEventModal = ({ modal, triggers }) => {
+          if(!modal || !triggers || !triggers.length) return;
+
+          const imageEl = modal.querySelector('[data-event-image]');
+          const titleEl = modal.querySelector('#event-modal-title');
+          const timeEl = modal.querySelector('[data-event-time]');
+          const costEl = modal.querySelector('[data-event-cost]');
+          const locationEl = modal.querySelector('[data-event-location]');
+          const descriptionEl = modal.querySelector('[data-event-description]');
+          const ctaEl = modal.querySelector('[data-event-cta]');
+          const closers = modal.querySelectorAll('[data-event-close]');
+          let lastFocused = null;
+
+          const openModal = (dataset) => {
+            lastFocused = document.activeElement;
+            if(imageEl){
+              imageEl.style.backgroundImage = dataset.eventImage ? `url('${dataset.eventImage}')` : 'none';
+            }
+            if(titleEl) titleEl.textContent = dataset.eventTitle || 'Upcoming Event';
+            if(timeEl) timeEl.textContent = dataset.eventTime || 'TBA';
+            if(costEl) costEl.textContent = dataset.eventCost || 'TBA';
+            if(locationEl) locationEl.textContent = dataset.eventLocationDetail || dataset.eventLocation || 'TBA';
+            if(descriptionEl) descriptionEl.textContent = dataset.eventDescription || '';
+
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden','false');
+            document.body.classList.add('modal-open');
+            (modal.querySelector('[data-event-close]') || titleEl)?.focus();
+          };
+
+          const closeModal = () => {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden','true');
+            document.body.classList.remove('modal-open');
+            if(lastFocused && typeof lastFocused.focus === 'function'){
+              lastFocused.focus();
+            }
+          };
+
+          const attachTrigger = (trigger) => {
+            const openWithData = () => openModal(trigger.dataset);
+            trigger.addEventListener('click', openWithData);
+            trigger.addEventListener('keydown', (event) => {
+              if(event.key === 'Enter' || event.key === ' '){
+                event.preventDefault();
+                openWithData();
+              }
+            });
+          };
+
+          triggers.forEach(attachTrigger);
+          closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+          modal.addEventListener('click', (event) => {
+            if(event.target === modal){
+              closeModal();
+            }
+          });
+
+          document.addEventListener('keydown', (event) => {
+            if(event.key === 'Escape' && modal.classList.contains('is-open')){
+              closeModal();
+            }
+          });
+
+          if(ctaEl){
+            ctaEl.addEventListener('click', () => {
+              closeModal();
+              const loginTrigger = document.querySelector('[data-login-open]');
+              if(loginTrigger){
+                loginTrigger.focus();
+                loginTrigger.click();
+              }else{
+                window.location.href = 'login.html';
+              }
+            });
+          }
+        };
+      }
+
+      const modal = document.getElementById('event-modal');
+      if(!modal) return;
+      const triggers = document.querySelectorAll('[data-event-trigger]');
+      const attach = window.__attachEventModal;
+      if(typeof attach === 'function'){
+        attach({ modal, triggers });
+      }
+    })();
+  </script>
+</body>
+</html>

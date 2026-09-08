@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OkanaganConnect — Host Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home host-dashboard">
+  <div class="home-shell">
+    <header class="home-header">
+      <div>
+        <h1 class="home-title">Host Dashboard</h1>
+        <p class="home-tagline">Plan, publish, and track your campus happenings in one workspace.</p>
+      </div>
+<nav class="home-nav">
+  <!-- Always visible -->
+  <a href="index.html" id="nav-home">Home</a>
+  <a href="events.html" id="nav-events">Events</a>
+
+  <!-- Role-specific links -->
+  <a href="host-dashboard.html" id="nav-host" style="display:none;">Host</a>
+  <a href="vendor-dashboard.html" id="nav-vendor" style="display:none;">Vendor</a>
+  <a href="admin.html" id="nav-admin" style="display:none;">Admin</a>
+
+  <!-- Login/Signup buttons (hidden when logged in) -->
+  <button class="home-nav-btn is-dark" type="button" id="login-btn" data-login-open>Login</button>
+
+  <!-- User dropdown (shown when logged in) -->
+  <div class="user-dropdown" id="user-dropdown" style="display:none;">
+    <button class="home-nav-btn is-primary" id="user-btn-toggle">
+      <span id="user-name">Welcome</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="user-dropdown-menu" id="user-dropdown-menu">
+      <button class="user-dropdown-item" id="settings-trigger">Settings</button>
+      <div class="user-dropdown-divider"></div>
+      <button class="user-dropdown-item" id="logout-trigger">Logout</button>
+    </div>
+  </div>
+  <a class="home-nav-btn is-primary" id="user-btn" href="register.html">Sign Up</a>
+</nav>
+    </header>
+
+    <section class="host-hero">
+      <div class="host-hero-content">
+        <h2>Keep your events on track this semester</h2>
+        <p>Monitor RSVPs, manage vendors, and share updates with your teams. Everything stays synced with the attendee experience on the main site.</p>
+      </div>
+      <div class="host-summary-grid">
+        <div class="host-summary-card">
+          <span class="host-summary-label">Active events</span>
+          <span class="host-summary-value" id="stat-active-events">0</span>
+        </div>
+        <div class="host-summary-card">
+          <span class="host-summary-label">Total RSVPs</span>
+          <span class="host-summary-value" id="stat-total-rsvps">0</span>
+        </div>
+        <div class="host-summary-card">
+          <span class="host-summary-label">Vendor requests</span>
+          <span class="host-summary-value" id="stat-vendor-requests">0</span>
+        </div>
+        <div class="host-summary-card">
+          <span class="host-summary-label">Draft events</span>
+          <span class="host-summary-value" id="stat-draft-events">0</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="home-columns">
+      <main class="home-main">
+        <section class="home-section host-events">
+          <div class="host-section-header">
+            <div>
+              <h2>Your Events</h2>
+              <p>Stay ahead of logistics for the shows you have in market.</p>
+            </div>
+            <a class="host-link" href="#new-event">New event</a>
+          </div>
+          <div class="host-events-list" id="host-events-list">
+            <div style="padding: 20px; text-align: center; color: #6b7280;">Loading your events...</div>
+          </div>
+        </section>
+
+        <section class="home-section host-manage" id="new-event" style="margin-top:48px;">
+          <h2>Create Event</h2>
+          <p class="host-section-subtitle">Draft new programming and keep details aligned with what attendees see on OkanaganConnect.</p>
+          <div id="event-form-message" style="color: red; font-size: 14px; margin-bottom: 12px; display: none;"></div>
+          <form class="host-form" id="host-form" novalidate>
+            <div class="host-form-grid">
+              <label class="host-field-group">
+                <span>Event title *</span>
+                <input class="host-input" type="text" name="title" placeholder="E.g. Sustainability Expo" required />
+              </label>
+              <label class="host-field-group">
+                <span>Location</span>
+                <input class="host-input" type="text" name="location" placeholder="Building or venue" />
+              </label>
+              <label class="host-field-group">
+                <span>Date</span>
+                <input class="host-input" type="date" name="date" />
+              </label>
+              <label class="host-field-group">
+                <span>Start time</span>
+                <input class="host-input" type="time" name="time" />
+              </label>
+                <label class="host-field-group">
+                <span>Cost</span>
+                <input class="host-input" type="text" name="cost" placeholder="Free" />
+              </label>
+            </div>
+
+            <label class="host-field-group">
+              <span>Short description</span>
+              <textarea class="host-input" name="description" rows="4" placeholder="Share highlights, RSVP incentives, or vendor needs."></textarea>
+            </label>
+
+            <label class="host-field-group">
+              <span>Image URL (optional)</span>
+              <input class="host-input" type="url" name="url" placeholder="https://example.com/image.jpg" />
+            </label>
+
+            <div class="host-form-grid">
+              <label class="host-field-group">
+                <span>Capacity</span>
+                <input class="host-input" type="number" name="capacity" placeholder="Optional" />
+              </label>
+              <label class="host-field-group">
+                <span>Category</span>
+                <select class="host-input" name="category">
+                  <option value="">Select category</option>
+                  <option value="community">Community</option>
+                  <option value="music">Music</option>
+                  <option value="tech">Tech</option>
+                  <option value="wellness">Wellness</option>
+                  <option value="outdoors">Outdoors</option>
+                  <option value="food">Food &amp; Drink</option>
+                </select>
+              </label>
+              <label class="host-field-group">
+                <span>Vendor needs</span>
+                <input class="host-input" type="text" name="vendor" placeholder="Food truck, AV support, etc." />
+              </label>
+            </div>
+
+            <div class="host-form-actions">
+              <button class="host-btn is-secondary" type="button" id="save-draft-btn">Save draft</button>
+              <button class="host-btn" type="submit" id="publish-btn">Publish event</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="home-section host-analytics">
+          <h2><br>Logistics snapshot</h2>
+          <div class="host-analytics-grid">
+            <div class="host-analytics-card">
+              <h3>Promotion checklist</h3>
+              <ul>
+                <li>Instagram story template shared with co-hosts</li>
+                <li>Email reminder scheduled for March 1</li>
+                <li>Campus digital signage assets approved</li>
+              </ul>
+            </div>
+            <div class="host-analytics-card">
+              <h3>Vendor follow-ups</h3>
+              <ul>
+                <li>Bean Scene Coffee — awaiting contract signature</li>
+                <li>AV Services — confirm load-in time (Mar 2)</li>
+                <li>Campus Security — finalize crowd
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="home-aside">
+  <div class="home-photo" role="img" aria-label="Okanagan lake and mountains"></div>
+        <div class="home-cta">
+          <h3>Share your lineup</h3>
+          <p>Submit events to the Events feed and reach students across the valley.</p>
+          <a class="home-cta-link" href="events.html">View Listings</a>
+          <p class="home-cta-footnote"><a href="mailto:events@okanaganconnect.ca">Need help? Email the team</a></p>
+        </div>
+        <div class="home-cta">
+          <h3>Vendor partners</h3>
+          <p>Invite local vendors to collaborate and manage logistics in one spot.</p>
+          <a class="home-cta-link" href="vendor-dashboard.html">Vendor Hub</a>
+        </div>
+        <div class="home-note">
+          <h3>Best practices</h3>
+          <ul>
+            <li>Update published events as soon as schedules change.</li>
+            <li>Toggle drafts live only after assets and staff are confirmed.</li>
+            <li>Use vendor notes to keep stakeholders in sync.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <p class="home-footer">Host tools are prototypes — connect FastAPI endpoints for real RSVPs and vendor data.</p>
+  </div>
+
+  <div class="login-modal" id="login-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+    <button class="login-modal__close" type="button" aria-label="Close login form" data-login-close>&times;</button>
+    <div class="login-modal__content">
+      <h2 class="login-title" id="login-modal-title">Okanagan Connect</h2>
+
+      <form id="login-form" class="login-form" novalidate>
+        <label class="login-label" for="modal-email">Email</label>
+        <input id="modal-email" class="login-input" name="email" type="email" placeholder="Enter your email" />
+
+        <label class="login-label" for="modal-password">Password</label>
+        <input id="modal-password" class="login-input" name="password" type="password" placeholder="Enter your password" />
+
+        <div id="login-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+        <div class="login-actions">
+          <button class="login-btn is-primary" type="submit">Login</button>
+          <button class="login-btn" type="button" onclick="window.location.href='register.html'">Signup</button>
+        </div>
+        <button class="login-btn is-secondary" type="button">Forgot Password</button>
+      </form>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+    </div>
+    <div class="login-modal__image" aria-hidden="true"></div>
+    </div>
+  </div>
+
+<!-- Settings Modal -->
+<div class="login-modal" id="settings-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title" style="max-width: 500px;">
+    <button class="login-modal__close" type="button" aria-label="Close settings" data-settings-close>&times;</button>
+    <div class="login-modal__content" style="padding: 48px 40px;">
+      <h2 class="login-title" id="settings-modal-title">Account Settings</h2>
+
+      <!-- Change Password Section -->
+      <div class="settings-section">
+        <h3>Change Password</h3>
+        <form id="change-password-form" class="login-form" novalidate>
+          <div class="settings-field-group">
+            <label class="login-label" for="current-password">Current Password</label>
+            <input id="current-password" class="login-input" type="password" placeholder="Enter current password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="new-password">New Password</label>
+            <input id="new-password" class="login-input" type="password" placeholder="Enter new password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="confirm-new-password">Confirm New Password</label>
+            <input id="confirm-new-password" class="login-input" type="password" placeholder="Re-enter new password" required />
+          </div>
+
+          <div id="password-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+          <div class="login-actions" style="margin-top: 16px;">
+            <button class="login-btn is-primary" type="submit">Update Password</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <!-- Delete Account Section -->
+      <div class="settings-danger-zone">
+        <h3>Delete Account</h3>
+        <p>Once you delete your account, there is no going back. Please be certain.</p>
+        <div id="delete-account-message" style="color: red; font-size: 13px; margin-bottom: 12px;"></div>
+        <button class="login-btn" id="delete-account-btn" style="background: #ef4444; width: 100%;">Delete Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="login-modal" id="confirmation-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="confirmation-modal-title" style="margin-bottom: 16px;">Confirm Action</h2>
+      <p id="confirmation-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn" id="confirmation-cancel" style="background: #e4e7eb;">Cancel</button>
+        <button class="login-btn is-primary" id="confirmation-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="login-modal" id="success-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="success-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="success-modal-title" style="margin-bottom: 16px; color: #2d67d1;">Success</h2>
+      <p id="success-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn is-primary" id="success-ok">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="event-modal" id="event-modal" aria-hidden="true">
+    <div class="event-modal__panel" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+      <button class="event-modal__close" type="button" aria-label="Close event details" data-event-close>&times;</button>
+      <div class="event-modal__image" data-event-image aria-hidden="true"></div>
+      <div class="event-modal__content">
+        <h3 class="event-modal__title" id="event-modal-title">Event Title</h3>
+        <div class="event-modal__meta">
+          <p><strong>Time:</strong> <span data-event-time>–</span></p>
+          <p><strong>Cost:</strong> <span data-event-cost>–</span></p>
+          <p><strong>Location:</strong> <span data-event-location>–</span></p>
+          <p><strong>Status:</strong> <span data-event-status>–</span></p>
+        </div>
+        <p class="event-modal__description" data-event-description>Event description placeholder.</p>
+        <button class="event-modal__cta" type="button" id="event-modal-action" data-event-cta>Publish Event</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-modal" id="edit-event-modal" aria-hidden="true">
+    <div class="event-modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-event-title" style="max-width: 700px;">
+      <button class="event-modal__close" type="button" aria-label="Close edit form" data-edit-close>&times;</button>
+      <div class="event-modal__content" style="padding: 30px;">
+        <h3 class="event-modal__title" id="edit-event-title">Edit Event</h3>
+        <div id="edit-event-message" style="color: red; font-size: 14px; margin-bottom: 12px; display: none;"></div>
+        
+        <form id="edit-event-form" style="margin-top: 20px;">
+          <input type="hidden" id="edit-event-id" />
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <label class="host-field-group">
+              <span>Event title *</span>
+              <input class="host-input" type="text" id="edit-title" name="title" required />
+            </label>
+            <label class="host-field-group">
+              <span>Location</span>
+              <input class="host-input" type="text" id="edit-location" name="location" />
+            </label>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <label class="host-field-group">
+              <span>Date</span>
+              <input class="host-input" type="date" id="edit-date" name="date" />
+            </label>
+            <label class="host-field-group">
+              <span>Start time</span>
+              <input class="host-input" type="time" id="edit-time" name="time" />
+            </label>
+          </div>
+
+          <label class="host-field-group" style="margin-bottom: 16px;">
+            <span>Cost</span>
+            <input class="host-input" type="text" id="edit-cost" name="cost" placeholder="Free" />
+          </label>
+
+          <label class="host-field-group" style="margin-bottom: 16px;">
+            <span>Description</span>
+            <textarea class="host-input" id="edit-description" name="description" rows="4"></textarea>
+          </label>
+
+          <label class="host-field-group" style="margin-bottom: 16px;">
+            <span>Image URL</span>
+            <input class="host-input" type="url" id="edit-url" name="url" placeholder="https://example.com/image.jpg" />
+          </label>
+
+          <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+            <button class="host-btn is-secondary" type="button" data-edit-close>Cancel</button>
+            <button class="host-btn" type="submit">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function() {
+  // --- Modal open/close ---
+  const modal = document.getElementById('login-modal');
+  if(!modal) return;  const openers = document.querySelectorAll('[data-login-open]');
+  const closers = modal.querySelectorAll('[data-login-close]');
+  let lastFocused = null;
+
+  const openModal = () => {
+    lastFocused = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const focusTarget = modal.querySelector('#modal-email');
+    if(focusTarget) focusTarget.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if(lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  openers.forEach(btn => btn.addEventListener('click', openModal));
+  closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+  // --- Form submission ---
+  const form = document.getElementById('login-form');
+  const msg = document.getElementById('login-message');
+  if(!form || !msg) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    msg.textContent = '';
+
+    const email = document.getElementById('modal-email').value.trim();
+    const password = document.getElementById('modal-password').value;
+
+    if(!email || !password){
+      msg.textContent = 'Please enter both email and password.';
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if(!res.ok){
+        msg.textContent = res.status === 401 ? 'Invalid email or password.' : 'Login failed. Please try again.';
+        return;
+      }
+
+      // Login successful → redirect
+
+      const data = await res.json();
+      localStorage.setItem('currentUser', JSON.stringify(data));
+      updateNav();
+      document.getElementById('login-modal').classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      window.location.href = 'index.html';
+
+    } catch(err){
+      console.error(err);
+      msg.textContent = 'Network error. Please try again.';
+    }
+  });
+})();
+</script>
+<script>
+// Custom confirmation modal
+function showConfirmation(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('confirmation-modal');
+    const messageEl = document.getElementById('confirmation-message');
+    const confirmBtn = document.getElementById('confirmation-confirm');
+    const cancelBtn = document.getElementById('confirmation-cancel');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleConfirm = () => {
+      cleanup();
+      resolve(true);
+    };
+    
+    const handleCancel = () => {
+      cleanup();
+      resolve(false);
+    };
+    
+    const cleanup = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      cancelBtn.removeEventListener('click', handleCancel);
+    };
+    
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+  });
+}
+
+// Custom success modal
+function showSuccess(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('success-modal');
+    const messageEl = document.getElementById('success-message');
+    const okBtn = document.getElementById('success-ok');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleOk = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      okBtn.removeEventListener('click', handleOk);
+      resolve();
+    };
+    
+    okBtn.addEventListener('click', handleOk);
+  });
+}
+
+function updateNav() {
+  const userBtn = document.getElementById('user-btn');
+  const userDropdown = document.getElementById('user-dropdown');
+  const userNameSpan = document.getElementById('user-name');
+  const loginBtn = document.querySelector('[data-login-open]');
+  const hostLink = document.getElementById('nav-host');
+  const vendorLink = document.getElementById('nav-vendor');
+  const adminLink = document.getElementById('nav-admin');
+  const homeLink = document.getElementById('nav-home');
+  const eventsLink = document.getElementById('nav-events');
+  
+  const userData = localStorage.getItem('currentUser');
+  const isDashboard = document.body.classList.contains('host-dashboard') || document.body.classList.contains('vendor-dashboard');
+
+  if (userData) {
+    const user = JSON.parse(userData);
+    
+    // Hide signup button, show dropdown
+    userBtn.style.display = 'none';
+    userDropdown.style.display = 'inline-block';
+    userNameSpan.textContent = `Welcome, ${user.name}`;
+    if (loginBtn) loginBtn.style.display = 'none';
+
+    const role = user.role.toLowerCase();
+
+    // Dashboard nav: only Home, Events, Welcome
+    if (isDashboard) {
+      homeLink.style.display = 'inline-block';
+      eventsLink.style.display = 'inline-block';
+      hostLink.style.display = 'none';
+      vendorLink.style.display = 'none';
+      if (adminLink) adminLink.style.display = 'none';
+    } else {
+      hostLink.style.display = role === 'host' ? 'inline-block' : 'none';
+      vendorLink.style.display = role === 'vendor' ? 'inline-block' : 'none';
+      if (adminLink) adminLink.style.display = role === 'admin' ? 'inline-block' : 'none';
+      homeLink.style.display = 'inline-block';
+      eventsLink.style.display = 'inline-block';
+    }
+
+  } else {
+    // Logged out state
+    userBtn.style.display = 'inline-block';
+    userBtn.textContent = 'Sign Up';
+    userBtn.href = 'register.html';
+    userDropdown.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'inline-block';
+    hostLink.style.display = 'none';
+    vendorLink.style.display = 'none';
+    if (adminLink) adminLink.style.display = 'none';
+    homeLink.style.display = 'inline-block';
+    eventsLink.style.display = 'inline-block';
+  }
+}
+
+// Dropdown toggle
+(function() {
+  const toggleBtn = document.getElementById('user-btn-toggle');
+  const menu = document.getElementById('user-dropdown-menu');
+  const settingsTrigger = document.getElementById('settings-trigger');
+  const logoutTrigger = document.getElementById('logout-trigger');
+
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('is-open');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+    });
+
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  if (settingsTrigger) {
+    settingsTrigger.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      const settingsModal = document.getElementById('settings-modal');
+      if (settingsModal) {
+        settingsModal.classList.add('is-open');
+        settingsModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      }
+    });
+  }
+
+  if (logoutTrigger) {
+    logoutTrigger.addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'index.html';
+    });
+  }
+})();
+
+// Settings modal logic
+(function() {
+  const modal = document.getElementById('settings-modal');
+  if (!modal) return;
+
+  const closers = modal.querySelectorAll('[data-settings-close]');
+  closers.forEach(btn => btn.addEventListener('click', () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }));
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Change password form
+  const passwordForm = document.getElementById('change-password-form');
+  const passwordMsg = document.getElementById('password-message');
+
+  if (passwordForm && passwordMsg) {
+    passwordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      passwordMsg.textContent = '';
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-new-password').value;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        passwordMsg.textContent = 'All fields are required.';
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        passwordMsg.textContent = 'New passwords do not match.';
+        return;
+      }
+
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        passwordMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      try {
+        const res = await fetch(`/api/user/${user.id}/password`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            current_password: currentPassword,
+            new_password: newPassword
+          })
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          passwordMsg.textContent = errorData.detail || 'Failed to update password.';
+          return;
+        }
+
+        passwordMsg.style.color = 'green';
+        passwordMsg.textContent = 'Password updated successfully!';
+        passwordForm.reset();
+
+        setTimeout(() => {
+          passwordMsg.textContent = '';
+          passwordMsg.style.color = 'red';
+        }, 3000);
+
+      } catch (err) {
+        console.error(err);
+        passwordMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+
+  // Delete account
+  const deleteBtn = document.getElementById('delete-account-btn');
+  const deleteMsg = document.getElementById('delete-account-message');
+
+  if (deleteBtn && deleteMsg) {
+    deleteBtn.addEventListener('click', async () => {
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        deleteMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      // Check if user can delete account
+      try {
+        const checkRes = await fetch(`/api/user/${user.id}/can-delete`);
+        const checkData = await checkRes.json();
+
+        if (!checkData.can_delete) {
+          deleteMsg.textContent = checkData.reason || 'Cannot delete account.';
+          return;
+        }
+
+        // Confirm deletion
+        const confirmed = await showConfirmation('Are you sure you want to delete your account? This action cannot be undone.');
+        if (!confirmed) {
+          return;
+        }
+
+        const deleteRes = await fetch(`/api/user/${user.id}`, {
+          method: 'DELETE'
+        });
+
+        if (!deleteRes.ok) {
+          const errorData = await deleteRes.json();
+          deleteMsg.textContent = errorData.detail || 'Failed to delete account.';
+          return;
+        }
+
+        // Logout and redirect
+        localStorage.removeItem('currentUser');
+        await showSuccess('Account deleted successfully.');
+        window.location.href = 'index.html';
+
+      } catch (err) {
+        console.error(err);
+        deleteMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+})();
+
+updateNav();
+</script>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+      </div>
+      <div class="login-modal__image" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('login-modal');
+      if(!modal) return;
+      const openers = document.querySelectorAll('[data-login-open]');
+      const closers = modal.querySelectorAll('[data-login-close]');
+      if(!openers.length) return;
+      let lastFocused = null;
+
+      const openModal = () => {
+        lastFocused = document.activeElement;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.classList.add('modal-open');
+        const focusTarget = modal.querySelector('#modal-email');
+        if(focusTarget){
+          focusTarget.focus();
+        }
+      };
+
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.classList.remove('modal-open');
+        if(lastFocused && typeof lastFocused.focus === 'function'){
+          lastFocused.focus();
+        }
+      };
+
+      openers.forEach(btn => btn.addEventListener('click', openModal));
+      closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+      modal.addEventListener('click', (event) => {
+        if(event.target === modal){
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if(event.key === 'Escape' && modal.classList.contains('is-open')){
+          closeModal();
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    // Handle event creation form submission
+    (function() {
+      const form = document.getElementById('host-form');
+      const messageEl = document.getElementById('event-form-message');
+      const saveDraftBtn = document.getElementById('save-draft-btn');
+      const publishBtn = document.getElementById('publish-btn');
+      if (!form || !messageEl) return;
+
+      // Track which button was clicked
+      let isDraft = false;
+
+      if (saveDraftBtn) {
+        saveDraftBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          isDraft = true;
+          form.requestSubmit(); // Trigger form submission
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        messageEl.style.display = 'none';
+        messageEl.textContent = '';
+        messageEl.style.color = 'red';
+
+        // Get current user from localStorage
+        const userData = localStorage.getItem('currentUser');
+        if (!userData) {
+          messageEl.textContent = 'You must be logged in to create events.';
+          messageEl.style.display = 'block';
+          isDraft = false;
+          return;
+        }
+
+        const user = JSON.parse(userData);
+
+        // Get form data
+        const formData = new FormData(form);
+        const title = formData.get('title')?.trim();
+        const description = formData.get('description')?.trim();
+        const location = formData.get('location')?.trim();
+        const date = formData.get('date');
+        const time = formData.get('time');
+        const cost = formData.get('cost')?.trim();
+        const url = formData.get('url')?.trim();
+
+        // Validate required fields
+        if (!title) {
+          messageEl.textContent = 'Event title is required.';
+          messageEl.style.display = 'block';
+          isDraft = false;
+          return;
+        }
+
+        // Combine date and time into ISO datetime string
+        let eventTime = null;
+        if (date && time) {
+          eventTime = `${date}T${time}:00`;
+        } else if (date) {
+          eventTime = `${date}T00:00:00`;
+        }
+
+        // Prepare payload - is_public is determined by which button was clicked
+        const payload = {
+          title,
+          description: description || null,
+          location: location || null,
+          time: eventTime,
+          cost: cost || null,
+          url: url || null,
+          is_public: !isDraft, // false for draft, true for publish
+          host_id: user.id
+        };
+
+        try {
+          const res = await fetch('/api/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            messageEl.textContent = errorData.detail || 'Failed to create event.';
+            messageEl.style.display = 'block';
+            isDraft = false;
+            return;
+          }
+
+          const newEvent = await res.json();
+          
+          // Show success modal
+          const status = isDraft ? 'saved as draft' : 'published';
+          const modalHtml = `
+            <div class="login-modal is-open" id="success-modal" style="z-index: 10000;">
+              <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+                <div class="login-modal__content" style="text-align: center; padding: 30px;">
+                  <h2 style="margin-bottom: 16px; font-size: 20px; color: #10b981;">Success!</h2>
+                  <p style="margin-bottom: 24px; color: #6b7280;">Event "${newEvent.title}" ${status} successfully!</p>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          document.body.insertAdjacentHTML('beforeend', modalHtml);
+          document.body.classList.add('modal-open');
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+
+        } catch (err) {
+          console.error('Error creating event:', err);
+          messageEl.textContent = 'Network error. Please try again.';
+          messageEl.style.display = 'block';
+          isDraft = false;
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    // Load and display host's events
+    (async function() {
+      const eventsList = document.getElementById('host-events-list');
+      if (!eventsList) return;
+
+      const escapeHTML = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+      // Get current user
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        eventsList.innerHTML = '<div style="padding: 20px; text-align: center; color: #6b7280;">Please log in to view your events.</div>';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      try {
+        // Fetch all events
+        const res = await fetch('/api/events');
+        if (!res.ok) throw new Error('Failed to fetch events');
+        
+        const allEvents = await res.json();
+        
+        // Filter events for this host
+        const hostEvents = allEvents.filter(event => event.host_id === user.id);
+
+        // Update statistics
+        const activeEvents = hostEvents.filter(e => e.is_public).length;
+        const draftEvents = hostEvents.filter(e => !e.is_public).length;
+        
+        document.getElementById('stat-active-events').textContent = activeEvents;
+        document.getElementById('stat-draft-events').textContent = draftEvents;
+        // TODO: Update RSVP and vendor counts when those features are implemented
+        document.getElementById('stat-total-rsvps').textContent = '0';
+        document.getElementById('stat-vendor-requests').textContent = '0';
+
+        if (!hostEvents || hostEvents.length === 0) {
+          eventsList.innerHTML = '<div style="padding: 20px; text-align: center; color: #6b7280;">No events yet. <a href="#new-event" style="color: #2563eb;">Create your first event</a></div>';
+          return;
+        }
+
+        // Render host's events
+        eventsList.innerHTML = hostEvents.map(event => {
+          const eventDate = event.time ? new Date(event.time) : null;
+          const dateLabel = eventDate ? eventDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA';
+          const timeLabel = eventDate ? eventDate.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) : 'TBA';
+          const status = event.is_public ? 'Live' : 'Draft';
+          const statusClass = event.is_public ? 'is-live' : '';
+          
+          return `
+            <article class="host-event-card">
+              <div class="host-event-header">
+                <h3>${escapeHTML(event.title)}</h3>
+                <span class="host-status ${statusClass}">${status}</span>
+              </div>
+              <div class="host-event-meta">
+                <span class="host-chip">${dateLabel}</span>
+                <span class="host-chip">${timeLabel}</span>
+                <span class="host-chip">${event.location ? escapeHTML(event.location) : 'TBA'}</span>
+                <span class="host-chip">RSVPs: 0</span>
+                <span class="host-chip">${escapeHTML(event.cost || 'Free')}</span>
+              </div>
+              <p class="host-event-copy">${escapeHTML(event.description || 'No description provided.')}</p>
+              <div class="host-event-actions">
+                <button class="host-btn is-secondary" type="button" onclick="viewEvent(${event.id})">Preview Event</button>
+                <button class="host-btn" type="button" onclick="editEvent(${event.id})">Edit Event</button>
+                <button class="host-btn" type="button" style="background: #ef4444;" onclick="deleteEvent(${event.id}, '${escapeHTML(event.title)}')">Delete</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('Error loading events:', err);
+        eventsList.innerHTML = '<div style="padding: 20px; text-align: center; color: #ef4444;">Failed to load events. Please try again.</div>';
+      }
+    })();
+
+    // Event action handlers
+    async function viewEvent(eventId) {
+      try {
+        // Fetch the event details
+        const res = await fetch('/api/events');
+        if (!res.ok) throw new Error('Failed to fetch events');
+        const events = await res.json();
+        const event = events.find(e => e.id === eventId);
+        
+        if (!event) {
+          alert('Event not found');
+          return;
+        }
+
+        // Open the modal with event details
+        const modal = document.getElementById('event-modal');
+        const imageEl = modal.querySelector('[data-event-image]');
+        const titleEl = modal.querySelector('#event-modal-title');
+        const timeEl = modal.querySelector('[data-event-time]');
+        const costEl = modal.querySelector('[data-event-cost]');
+        const locationEl = modal.querySelector('[data-event-location]');
+        const statusEl = modal.querySelector('[data-event-status]');
+        const descriptionEl = modal.querySelector('[data-event-description]');
+        const ctaBtn = modal.querySelector('#event-modal-action');
+
+        const timeLabel = event.time ? new Date(event.time).toLocaleString() : 'TBA';
+        const eventImage = event.image || 'img/defaultEventImg.jpg';
+        
+        if (imageEl) imageEl.style.backgroundImage = `url('${eventImage}')`;
+        if (titleEl) titleEl.textContent = event.title;
+        if (timeEl) timeEl.textContent = timeLabel;
+        if (costEl) costEl.textContent = event.cost || 'Free';
+        if (locationEl) locationEl.textContent = event.location || 'TBA';
+        if (statusEl) statusEl.textContent = event.is_public ? 'Live (Public)' : 'Draft (Private)';
+        if (descriptionEl) descriptionEl.textContent = event.description || 'No description provided.';
+        
+        // Update CTA button based on event status
+        if (ctaBtn) {
+          if (event.is_public) {
+            ctaBtn.textContent = 'Unpublish Event';
+            ctaBtn.onclick = () => togglePublishEvent(eventId, false);
+          } else {
+            ctaBtn.textContent = 'Publish Event';
+            ctaBtn.onclick = () => togglePublishEvent(eventId, true);
+          }
+        }
+
+        // Show modal
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+
+      } catch (err) {
+        console.error('Error viewing event:', err);
+        alert('Failed to load event details');
+      }
+    }
+
+    async function togglePublishEvent(eventId, makePublic) {
+      // Close the view modal first
+      const viewModal = document.getElementById('event-modal');
+      viewModal.classList.remove('is-open');
+      viewModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+
+      // Create custom confirmation modal
+      const action = makePublic ? 'publish' : 'unpublish';
+      const modalHtml = `
+        <div class="login-modal is-open" id="confirm-modal" style="z-index: 10000;">
+          <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+            <div class="login-modal__content" style="text-align: center; padding: 30px;">
+              <h2 style="margin-bottom: 16px; font-size: 20px;">Confirm ${action.charAt(0).toUpperCase() + action.slice(1)}</h2>
+              <p style="margin-bottom: 24px; color: #6b7280;">Are you sure you want to ${action} this event?</p>
+              <div style="display: flex; gap: 12px; justify-content: center;">
+                <button class="host-btn is-secondary" id="cancel-confirm">Cancel</button>
+                <button class="host-btn" id="proceed-confirm">${action.charAt(0).toUpperCase() + action.slice(1)}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      const confirmModal = document.getElementById('confirm-modal');
+      
+      document.getElementById('cancel-confirm').onclick = () => {
+        confirmModal.remove();
+        document.body.classList.remove('modal-open');
+      };
+      
+      document.getElementById('proceed-confirm').onclick = async () => {
+        try {
+          const res = await fetch(`/api/events/${eventId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_public: makePublic })
+          });
+
+          if (!res.ok) throw new Error('Failed to update event');
+
+          // Show success modal
+          confirmModal.innerHTML = `
+            <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+              <div class="login-modal__content" style="text-align: center; padding: 30px;">
+                <h2 style="margin-bottom: 16px; font-size: 20px; color: #10b981;">Success!</h2>
+                <p style="margin-bottom: 24px; color: #6b7280;">Event ${action}ed successfully!</p>
+              </div>
+            </div>
+          `;
+          
+          setTimeout(() => {
+            confirmModal.remove();
+            document.body.classList.remove('modal-open');
+            window.location.reload();
+          }, 1500);
+          
+        } catch (err) {
+          console.error('Error toggling publish status:', err);
+          confirmModal.innerHTML = `
+            <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+              <div class="login-modal__content" style="text-align: center; padding: 30px;">
+                <h2 style="margin-bottom: 16px; font-size: 20px; color: #ef4444;">Error</h2>
+                <p style="margin-bottom: 24px; color: #6b7280;">Failed to ${action} event. Please try again.</p>
+                <button class="host-btn" onclick="this.closest('#confirm-modal').remove(); document.body.classList.remove('modal-open');">Close</button>
+              </div>
+            </div>
+          `;
+        }
+      };
+    }
+
+    function editEvent(eventId) {
+      // Fetch the event details and populate the edit form
+      fetch('/api/events')
+        .then(res => res.json())
+        .then(events => {
+          const event = events.find(e => e.id === eventId);
+          if (!event) {
+            alert('Event not found');
+            return;
+          }
+
+          // Populate form fields
+          document.getElementById('edit-event-id').value = event.id;
+          document.getElementById('edit-title').value = event.title || '';
+          document.getElementById('edit-location').value = event.location || '';
+          document.getElementById('edit-cost').value = event.cost || '';
+          document.getElementById('edit-description').value = event.description || '';
+          document.getElementById('edit-url').value = event.image || '';
+
+          // Parse datetime for date and time inputs
+          if (event.time) {
+            const eventDate = new Date(event.time);
+            const dateStr = eventDate.toISOString().split('T')[0];
+            const timeStr = eventDate.toTimeString().slice(0, 5);
+            document.getElementById('edit-date').value = dateStr;
+            document.getElementById('edit-time').value = timeStr;
+          } else {
+            document.getElementById('edit-date').value = '';
+            document.getElementById('edit-time').value = '';
+          }
+
+          // Show the edit modal
+          const modal = document.getElementById('edit-event-modal');
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('modal-open');
+        })
+        .catch(err => {
+          console.error('Error loading event:', err);
+          alert('Failed to load event details');
+        });
+    }
+
+    async function deleteEvent(eventId, eventTitle) {
+      // Create custom confirmation modal
+      const modalHtml = `
+        <div class="login-modal is-open" id="delete-modal" style="z-index: 10000;">
+          <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 450px;">
+            <div class="login-modal__content" style="text-align: center; padding: 30px;">
+              <h2 style="margin-bottom: 16px; font-size: 20px; color: #ef4444;">Delete Event</h2>
+              <p style="margin-bottom: 24px; color: #6b7280;">Are you sure you want to delete "<strong>${eventTitle}</strong>"? This action cannot be undone.</p>
+              <div style="display: flex; gap: 12px; justify-content: center;">
+                <button class="host-btn is-secondary" id="cancel-delete">Cancel</button>
+                <button class="host-btn" style="background: #ef4444;" id="proceed-delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      const deleteModal = document.getElementById('delete-modal');
+      
+      document.getElementById('cancel-delete').onclick = () => {
+        deleteModal.remove();
+        document.body.classList.remove('modal-open');
+      };
+      
+      document.getElementById('proceed-delete').onclick = async () => {
+        try {
+          const res = await fetch(`/api/events/${eventId}`, {
+            method: 'DELETE'
+          });
+
+          if (!res.ok) {
+            throw new Error('Failed to delete event');
+          }
+
+          // Show success modal
+          deleteModal.innerHTML = `
+            <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+              <div class="login-modal__content" style="text-align: center; padding: 30px;">
+                <h2 style="margin-bottom: 16px; font-size: 20px; color: #10b981;">Success!</h2>
+                <p style="margin-bottom: 24px; color: #6b7280;">Event "${eventTitle}" deleted successfully!</p>
+              </div>
+            </div>
+          `;
+          
+          setTimeout(() => {
+            deleteModal.remove();
+            document.body.classList.remove('modal-open');
+            window.location.reload();
+          }, 1500);
+
+        } catch (err) {
+          console.error('Error deleting event:', err);
+          deleteModal.innerHTML = `
+            <div class="login-modal__panel" role="dialog" aria-modal="true" style="max-width: 400px;">
+              <div class="login-modal__content" style="text-align: center; padding: 30px;">
+                <h2 style="margin-bottom: 16px; font-size: 20px; color: #ef4444;">Error</h2>
+                <p style="margin-bottom: 24px; color: #6b7280;">Failed to delete event. Please try again.</p>
+                <button class="host-btn" onclick="this.closest('#delete-modal').remove(); document.body.classList.remove('modal-open');">Close</button>
+              </div>
+            </div>
+          `;
+        }
+      };
+    }
+
+    // Event modal close handlers
+    (function() {
+      const modal = document.getElementById('event-modal');
+      if (!modal) return;
+
+      const closers = modal.querySelectorAll('[data-event-close]');
+      
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      };
+
+      closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+      });
+    })();
+
+    // Edit event modal close handlers and form submission
+    (function() {
+      const modal = document.getElementById('edit-event-modal');
+      if (!modal) return;
+
+      const closers = modal.querySelectorAll('[data-edit-close]');
+      const form = document.getElementById('edit-event-form');
+      const messageEl = document.getElementById('edit-event-message');
+      
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+        if (form) form.reset();
+        if (messageEl) {
+          messageEl.style.display = 'none';
+          messageEl.textContent = '';
+        }
+      };
+
+      closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+      });
+
+      // Handle form submission
+      if (form && messageEl) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          messageEl.style.display = 'none';
+          messageEl.textContent = '';
+          messageEl.style.color = 'red';
+
+          const eventId = document.getElementById('edit-event-id').value;
+          const title = document.getElementById('edit-title').value.trim();
+          const location = document.getElementById('edit-location').value.trim();
+          const cost = document.getElementById('edit-cost').value.trim();
+          const description = document.getElementById('edit-description').value.trim();
+          const url = document.getElementById('edit-url').value.trim();
+          const date = document.getElementById('edit-date').value;
+          const time = document.getElementById('edit-time').value;
+
+          if (!title) {
+            messageEl.textContent = 'Event title is required.';
+            messageEl.style.display = 'block';
+            return;
+          }
+
+          // Combine date and time
+          let eventTime = null;
+          if (date && time) {
+            eventTime = `${date}T${time}:00`;
+          } else if (date) {
+            eventTime = `${date}T00:00:00`;
+          }
+
+          const payload = {
+            title,
+            description: description || null,
+            location: location || null,
+            time: eventTime,
+            cost: cost || null,
+            url: url || null
+          };
+
+          try {
+            const res = await fetch(`/api/events/${eventId}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+              const errorData = await res.json();
+              messageEl.textContent = errorData.detail || 'Failed to update event.';
+              messageEl.style.display = 'block';
+              return;
+            }
+
+            messageEl.style.color = 'green';
+            messageEl.textContent = 'Event updated successfully!';
+            messageEl.style.display = 'block';
+
+            setTimeout(() => {
+              closeModal();
+              window.location.reload();
+            }, 1000);
+
+          } catch (err) {
+            console.error('Error updating event:', err);
+            messageEl.textContent = 'Network error. Please try again.';
+            messageEl.style.display = 'block';
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

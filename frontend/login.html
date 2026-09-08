@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign in — OkanaganConnect</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body class="login">
+  <div class="login-shell">
+    <section class="login-panel">
+      <h1 class="login-title">Okanagan Connect</h1>
+      <form class="login-form">
+        <label class="login-label" for="email">Email</label>
+        <input id="email" class="login-input" name="email" type="email" placeholder="Enter your email" />
+
+        <label class="login-label" for="password">Password</label>
+        <input id="password" class="login-input" name="password" type="password" placeholder="Enter your password" />
+
+        <label class="login-remember"><input type="checkbox" /> Remember Me</label>
+
+        <div class="login-actions">
+          <button class="login-btn is-primary" type="button" onclick="location.href='events.html'">Login</button>
+          <button class="login-btn" type="button" onclick="location.href='register.html'">Signup</button>
+        </div>
+        <button class="login-btn is-secondary" type="button">Forgot Password</button>
+      </form>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+    </section>
+
+    <aside class="login-image" aria-hidden="true"></aside>
+  </div>
+</body>
+</html>

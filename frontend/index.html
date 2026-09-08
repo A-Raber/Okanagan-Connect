@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OkanaganConnect — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home">
+  <div class="home-shell">
+    <header class="home-header">
+      <div>
+        <h1 class="home-title">Okanagan Connect</h1>
+        <p class="home-tagline">Your link to all the events in the valley.</p>
+      </div>
+      <nav class="home-nav">
+        <a href="index.html" id="nav-home">Home</a>
+        <a href="events.html" id="nav-events">Events</a>
+        <a href="host-dashboard.html" id="nav-host" style="display:none;">Host</a>
+        <a href="vendor-dashboard.html" id="nav-vendor" style="display:none;">Vendor</a>
+        <a href="admin.html" id="nav-admin" style="display:none;">Admin</a>
+        <button class="home-nav-btn is-dark" type="button" data-login-open>Login</button>
+        <div class="user-dropdown" id="user-dropdown" style="display:none;">
+          <button class="home-nav-btn is-primary" id="user-btn-toggle">
+            <span id="user-name">Welcome</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="user-dropdown-menu" id="user-dropdown-menu">
+            <button class="user-dropdown-item" id="settings-trigger">Settings</button>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item" id="logout-trigger">Logout</button>
+          </div>
+        </div>
+        <a class="home-nav-btn is-primary" id="user-btn" href="register.html">Sign Up</a>
+      </nav>
+    </header>
+
+    <div class="home-search" role="search">
+      <input type="search" placeholder="Search for events" aria-label="Search for events" />
+      <button type="button" onclick="location.href='events.html'">Search</button>
+    </div>
+
+    <div class="home-columns">
+      <main class="home-main">
+        <section class="home-section">
+          <h2>Events Near You</h2>
+          <div class="home-events-grid" id="events-grid">
+            <!-- events will be loaded from /api/events -->
+            <div id="events-loading" style="grid-column:1/-1;padding:16px">Loading events…</div>
+          </div>
+        </section>
+
+        <section class="home-section">
+          <h2><br>Upcoming Events</h2>
+          <div class="home-upcoming-row" id = "upcoming-events">
+            <!-- events will be loaded from /api/events -->
+            <div>Loading upcoming events…</div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="home-aside">
+  <div class="home-photo" role="img" aria-label="Sunrise over Okanagan Valley"></div>
+        <div class="home-note">
+          <h3>Quick Tips</h3>
+          <ul>
+            <li>Use the search above to filter by tag or location.</li>
+            <li>RSVP previews the attendee journey for the sponsor demo.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<div class="login-modal" id="login-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+    <button class="login-modal__close" type="button" aria-label="Close login form" data-login-close>&times;</button>
+    <div class="login-modal__content">
+      <h2 class="login-title" id="login-modal-title">Okanagan Connect</h2>
+
+      <form id="login-form" class="login-form" novalidate>
+        <label class="login-label" for="modal-email">Email</label>
+        <input id="modal-email" class="login-input" name="email" type="email" placeholder="Enter your email" />
+
+        <label class="login-label" for="modal-password">Password</label>
+        <input id="modal-password" class="login-input" name="password" type="password" placeholder="Enter your password" />
+
+        <div id="login-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+        <div class="login-actions">
+          <button class="login-btn is-primary" type="submit">Login</button>
+          <button class="login-btn" type="button" onclick="window.location.href='register.html'">Signup</button>
+        </div>
+        <button class="login-btn is-secondary" type="button">Forgot Password</button>
+      </form>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+    </div>
+    <div class="login-modal__image" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="login-modal" id="settings-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title" style="max-width: 500px;">
+    <button class="login-modal__close" type="button" aria-label="Close settings" data-settings-close>&times;</button>
+    <div class="login-modal__content" style="padding: 48px 40px;">
+      <h2 class="login-title" id="settings-modal-title">Account Settings</h2>
+
+      <!-- Change Password Section -->
+      <div class="settings-section">
+        <h3>Change Password</h3>
+        <form id="change-password-form" class="login-form" novalidate>
+          <div class="settings-field-group">
+            <label class="login-label" for="current-password">Current Password</label>
+            <input id="current-password" class="login-input" type="password" placeholder="Enter current password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="new-password">New Password</label>
+            <input id="new-password" class="login-input" type="password" placeholder="Enter new password" required />
+          </div>
+          
+          <div class="settings-field-group">
+            <label class="login-label" for="confirm-new-password">Confirm New Password</label>
+            <input id="confirm-new-password" class="login-input" type="password" placeholder="Re-enter new password" required />
+          </div>
+
+          <div id="password-message" style="color: red; font-size: 13px; margin-top: 4px;"></div>
+
+          <div class="login-actions" style="margin-top: 16px;">
+            <button class="login-btn is-primary" type="submit">Update Password</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <!-- Delete Account Section -->
+      <div class="settings-danger-zone">
+        <h3>Delete Account</h3>
+        <p>Once you delete your account, there is no going back. Please be certain.</p>
+        <div id="delete-account-message" style="color: red; font-size: 13px; margin-bottom: 12px;"></div>
+        <button class="login-btn" id="delete-account-btn" style="background: #ef4444; width: 100%;">Delete Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="login-modal" id="confirmation-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="confirmation-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="confirmation-modal-title" style="margin-bottom: 16px;">Confirm Action</h2>
+      <p id="confirmation-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn" id="confirmation-cancel" style="background: #e4e7eb;">Cancel</button>
+        <button class="login-btn is-primary" id="confirmation-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="login-modal" id="success-modal" aria-hidden="true">
+  <div class="login-modal__panel" role="dialog" aria-modal="true" aria-labelledby="success-modal-title" style="max-width: 400px;">
+    <div class="login-modal__content" style="padding: 32px; text-align: center;">
+      <h2 class="login-title" id="success-modal-title" style="margin-bottom: 16px; color: #2d67d1;">Success</h2>
+      <p id="success-message" style="margin-bottom: 24px; color: #52606d;"></p>
+      <div class="login-actions">
+        <button class="login-btn is-primary" id="success-ok">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // --- Modal open/close ---
+  const modal = document.getElementById('login-modal');
+  if(!modal) return;
+
+  const openers = document.querySelectorAll('[data-login-open]');
+  const closers = modal.querySelectorAll('[data-login-close]');
+  let lastFocused = null;
+
+  const openModal = () => {
+    lastFocused = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const focusTarget = modal.querySelector('#modal-email');
+    if(focusTarget) focusTarget.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if(lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  openers.forEach(btn => btn.addEventListener('click', openModal));
+  closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+  // --- Form submission ---
+  const form = document.getElementById('login-form');
+  const msg = document.getElementById('login-message');
+  if(!form || !msg) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    msg.textContent = '';
+
+    const email = document.getElementById('modal-email').value.trim();
+    const password = document.getElementById('modal-password').value;
+
+    if(!email || !password){
+      msg.textContent = 'Please enter both email and password.';
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if(!res.ok){
+        msg.textContent = res.status === 401 ? 'Invalid email or password.' : 'Login failed. Please try again.';
+        return;
+      }
+
+      // Login successful → redirect
+      const data = await res.json();
+      localStorage.setItem('currentUser', JSON.stringify(data));
+      updateNav();
+      document.getElementById('login-modal').classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+
+    } catch(err){
+      console.error(err);
+      msg.textContent = 'Network error. Please try again.';
+    }
+  });
+})();
+</script>
+<script>
+// Custom confirmation modal
+function showConfirmation(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('confirmation-modal');
+    const messageEl = document.getElementById('confirmation-message');
+    const confirmBtn = document.getElementById('confirmation-confirm');
+    const cancelBtn = document.getElementById('confirmation-cancel');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleConfirm = () => {
+      cleanup();
+      resolve(true);
+    };
+    
+    const handleCancel = () => {
+      cleanup();
+      resolve(false);
+    };
+    
+    const cleanup = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      cancelBtn.removeEventListener('click', handleCancel);
+    };
+    
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+  });
+}
+
+// Custom success modal
+function showSuccess(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('success-modal');
+    const messageEl = document.getElementById('success-message');
+    const okBtn = document.getElementById('success-ok');
+    
+    messageEl.textContent = message;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    const handleOk = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      okBtn.removeEventListener('click', handleOk);
+      resolve();
+    };
+    
+    okBtn.addEventListener('click', handleOk);
+  });
+}
+
+function updateNav() {
+  const userBtn = document.getElementById('user-btn');
+  const userDropdown = document.getElementById('user-dropdown');
+  const userNameSpan = document.getElementById('user-name');
+  const loginBtn = document.querySelector('[data-login-open]');
+  const hostLink = document.getElementById('nav-host');
+  const vendorLink = document.getElementById('nav-vendor');
+  const adminLink = document.getElementById('nav-admin');
+  
+  const userData = localStorage.getItem('currentUser');
+
+  if (userData) {
+    const user = JSON.parse(userData);
+    
+    // Hide signup button, show dropdown
+    userBtn.style.display = 'none';
+    userDropdown.style.display = 'inline-block';
+    userNameSpan.textContent = `Welcome, ${user.name}`;
+    if (loginBtn) loginBtn.style.display = 'none';
+
+    const role = user.role.toLowerCase();
+
+    // Show/hide role-specific buttons
+    hostLink.style.display = role === 'host' ? 'inline-block' : 'none';
+    vendorLink.style.display = role === 'vendor' ? 'inline-block' : 'none';
+    if (adminLink) adminLink.style.display = role === 'admin' ? 'inline-block' : 'none';
+
+  } else {
+    // Logged out state
+    userBtn.style.display = 'inline-block';
+    userBtn.textContent = 'Sign Up';
+    userBtn.href = 'register.html';
+    userDropdown.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'inline-block';
+    hostLink.style.display = 'none';
+    vendorLink.style.display = 'none';
+    if (adminLink) adminLink.style.display = 'none';
+  }
+}
+
+// Dropdown toggle
+(function() {
+  const toggleBtn = document.getElementById('user-btn-toggle');
+  const menu = document.getElementById('user-dropdown-menu');
+  const settingsTrigger = document.getElementById('settings-trigger');
+  const logoutTrigger = document.getElementById('logout-trigger');
+
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('is-open');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+    });
+
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  if (settingsTrigger) {
+    settingsTrigger.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      const settingsModal = document.getElementById('settings-modal');
+      if (settingsModal) {
+        settingsModal.classList.add('is-open');
+        settingsModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      }
+    });
+  }
+
+  if (logoutTrigger) {
+    logoutTrigger.addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'index.html';
+    });
+  }
+})();
+
+// Settings modal logic
+(function() {
+  const modal = document.getElementById('settings-modal');
+  if (!modal) return;
+
+  const closers = modal.querySelectorAll('[data-settings-close]');
+  closers.forEach(btn => btn.addEventListener('click', () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }));
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Change password form
+  const passwordForm = document.getElementById('change-password-form');
+  const passwordMsg = document.getElementById('password-message');
+
+  if (passwordForm && passwordMsg) {
+    passwordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      passwordMsg.textContent = '';
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-new-password').value;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        passwordMsg.textContent = 'All fields are required.';
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        passwordMsg.textContent = 'New passwords do not match.';
+        return;
+      }
+
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        passwordMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      try {
+        const res = await fetch(`/api/user/${user.id}/password`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            current_password: currentPassword,
+            new_password: newPassword
+          })
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          passwordMsg.textContent = errorData.detail || 'Failed to update password.';
+          return;
+        }
+
+        passwordMsg.style.color = 'green';
+        passwordMsg.textContent = 'Password updated successfully!';
+        passwordForm.reset();
+
+        setTimeout(() => {
+          passwordMsg.textContent = '';
+          passwordMsg.style.color = 'red';
+        }, 3000);
+
+      } catch (err) {
+        console.error(err);
+        passwordMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+
+  // Delete account
+  const deleteBtn = document.getElementById('delete-account-btn');
+  const deleteMsg = document.getElementById('delete-account-message');
+
+  if (deleteBtn && deleteMsg) {
+    deleteBtn.addEventListener('click', async () => {
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        deleteMsg.textContent = 'Not logged in.';
+        return;
+      }
+
+      const user = JSON.parse(userData);
+
+      // Check if user can delete account
+      try {
+        const checkRes = await fetch(`/api/user/${user.id}/can-delete`);
+        const checkData = await checkRes.json();
+
+        if (!checkData.can_delete) {
+          deleteMsg.textContent = checkData.reason || 'Cannot delete account.';
+          return;
+        }
+
+        // Confirm deletion
+        const confirmed = await showConfirmation('Are you sure you want to delete your account? This action cannot be undone.');
+        if (!confirmed) {
+          return;
+        }
+
+        const deleteRes = await fetch(`/api/user/${user.id}`, {
+          method: 'DELETE'
+        });
+
+        if (!deleteRes.ok) {
+          const errorData = await deleteRes.json();
+          deleteMsg.textContent = errorData.detail || 'Failed to delete account.';
+          return;
+        }
+
+        // Logout and redirect
+        localStorage.removeItem('currentUser');
+        await showSuccess('Account deleted successfully.');
+        window.location.href = 'index.html';
+
+      } catch (err) {
+        console.error(err);
+        deleteMsg.textContent = 'Network error. Please try again.';
+      }
+    });
+  }
+})();
+
+// Run on page load
+updateNav();
+</script>
+
+      <p class="login-footnote">Welcome to Okanagan Connect!<br />Your link to all the events in the valley.</p>
+      </div>
+      <div class="login-modal__image" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="event-modal" id="event-modal" aria-hidden="true">
+    <div class="event-modal__panel" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+      <button class="event-modal__close" type="button" aria-label="Close event details" data-event-close>&times;</button>
+      <div class="event-modal__image" data-event-image aria-hidden="true"></div>
+      <div class="event-modal__content">
+        <h3 class="event-modal__title" id="event-modal-title">Event Title</h3>
+        <div class="event-modal__meta">
+          <p><strong>Date:</strong> <span data-event-date>–</span></p>
+          <p><strong>Time:</strong> <span data-event-time>–</span></p>
+          <p><strong>Cost:</strong> <span data-event-cost>–</span></p>
+          <p><strong>Location:</strong> <span data-event-location>–</span></p>
+        </div>
+        <p class="event-modal__description" data-event-description>Event description placeholder.</p>
+        <button class="event-modal__cta" type="button" data-event-cta>RSVP</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('login-modal');
+      if(!modal) return;
+      const openers = document.querySelectorAll('[data-login-open]');
+      const closers = modal.querySelectorAll('[data-login-close]');
+      let lastFocused = null;
+
+      const openModal = () => {
+        lastFocused = document.activeElement;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.classList.add('modal-open');
+        const focusTarget = modal.querySelector('#modal-email');
+        if(focusTarget){
+          focusTarget.focus();
+        }
+      };
+
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.classList.remove('modal-open');
+        if(lastFocused && typeof lastFocused.focus === 'function'){
+          lastFocused.focus();
+        }
+      };
+
+      openers.forEach(btn => btn.addEventListener('click', openModal));
+      closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+      modal.addEventListener('click', (event) => {
+        if(event.target === modal){
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if(event.key === 'Escape' && modal.classList.contains('is-open')){
+          closeModal();
+        }
+      });
+    })();
+
+    (function(){
+      const initializer = ({ modal, triggers }) => {
+        if(!modal || !triggers || !triggers.length) return;
+
+        const imageEl = modal.querySelector('[data-event-image]');
+        const titleEl = modal.querySelector('#event-modal-title');
+        const dateEl = modal.querySelector('[data-event-date]');
+        const timeEl = modal.querySelector('[data-event-time]');
+        const costEl = modal.querySelector('[data-event-cost]');
+        const locationEl = modal.querySelector('[data-event-location]');
+        const descriptionEl = modal.querySelector('[data-event-description]');
+        const ctaEl = modal.querySelector('[data-event-cta]');
+        const closers = modal.querySelectorAll('[data-event-close]');
+        let lastFocused = null;
+
+        const openModal = (dataset) => {
+          lastFocused = document.activeElement;
+          if(imageEl){
+            const modalImage = dataset.eventImage || 'img/defaultEventImg.jpg';
+            imageEl.style.backgroundImage = `url('${modalImage}')`;
+          }
+          if(titleEl) titleEl.textContent = dataset.eventTitle || 'Upcoming Event';
+          
+          // Parse date and time separately
+          const eventDateTime = dataset.eventTime ? new Date(dataset.eventTime) : null;
+          if(dateEl) dateEl.textContent = eventDateTime ? eventDateTime.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBA';
+          if(timeEl) timeEl.textContent = eventDateTime ? eventDateTime.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) : 'TBA';
+          
+          if(costEl) costEl.textContent = dataset.eventCost || 'TBA';
+          if(locationEl) locationEl.textContent = dataset.eventLocation || 'TBA';
+          if(descriptionEl) descriptionEl.textContent = dataset.eventDescription || '';
+
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden','false');
+          document.body.classList.add('modal-open');
+          (modal.querySelector('[data-event-close]') || titleEl)?.focus();
+        };
+
+        const closeModal = () => {
+          modal.classList.remove('is-open');
+          modal.setAttribute('aria-hidden','true');
+          document.body.classList.remove('modal-open');
+          if(lastFocused && typeof lastFocused.focus === 'function'){
+            lastFocused.focus();
+          }
+        };
+
+        const attachTrigger = (trigger) => {
+          const openWithData = () => openModal(trigger.dataset);
+          trigger.addEventListener('click', openWithData);
+          trigger.addEventListener('keydown', (event) => {
+            if(event.key === 'Enter' || event.key === ' '){
+              event.preventDefault();
+              openWithData();
+            }
+          });
+        };
+
+        triggers.forEach(attachTrigger);
+        closers.forEach(btn => btn.addEventListener('click', closeModal));
+
+        modal.addEventListener('click', (event) => {
+          if(event.target === modal){
+            closeModal();
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if(event.key === 'Escape' && modal.classList.contains('is-open')){
+            closeModal();
+          }
+        });
+
+        if(ctaEl){
+          ctaEl.addEventListener('click', () => {
+            closeModal();
+            const loginTrigger = document.querySelector('[data-login-open]');
+            if(loginTrigger){
+              loginTrigger.focus();
+              loginTrigger.click();
+            }
+          });
+        }
+      };
+
+      window.__attachEventModal = initializer;
+
+      const modal = document.getElementById('event-modal');
+      if(!modal) return;
+      const triggers = document.querySelectorAll('[data-event-trigger]');
+      if(!triggers.length) return;
+      initializer({ modal, triggers });
+    })();
+  </script>
+    <!-- client: fetch events from backend and render into #events-grid -->
+  <script>
+  (async function(){
+    const grid = document.getElementById('events-grid');
+    if(!grid) return;
+    const escapeHTML = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    try{
+      const res = await fetch('/api/events');
+      if(!res.ok) throw new Error('Network response not ok');
+      const allEvents = await res.json();
+      
+      // Filter to show only public (live) events
+      const events = allEvents.filter(ev => ev.is_public === true);
+      
+      if(!events || !events.length){
+        grid.innerHTML = '<div class="events-empty" style="grid-column:1/-1;padding:16px">No events available.</div>';
+        return;
+      }
+    grid.innerHTML = events.map(ev => {
+    const eventDate = ev.time ? new Date(ev.time) : null;
+    const dateLabel = eventDate ? eventDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+    const timeLabel = eventDate ? eventDate.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) : '';
+    const fullTimeLabel = ev.time ? new Date(ev.time).toLocaleString() : '';
+    const locationText = ev.location || '';
+    const truncatedLocation = locationText.length > 18 ? locationText.substring(0, 18) + '...' : locationText;
+    const eventImage = ev.image || 'img/defaultEventImg.jpg';
+    return `
+    <article class="event-card" role="button" tabindex="0"
+      data-event-card data-event-trigger
+      data-event-title="${escapeHTML(ev.title)}"
+      data-event-time="${escapeHTML(fullTimeLabel)}"
+      data-event-cost="${escapeHTML(ev.cost || '')}"
+      data-event-location="${escapeHTML(ev.location || '')}"
+      data-event-description="${escapeHTML(ev.description || '')}"
+      data-event-image="${escapeHTML(eventImage)}"
+      >
+      <img src="${escapeHTML(eventImage)}" alt="${escapeHTML(ev.title)}" onerror="this.src='img/defaultEventImg.jpg'" />
+      <div class="event-card-body">
+        <h3>${escapeHTML(ev.title)}</h3>
+        <div class="events-meta-row">
+          <span>${escapeHTML(truncatedLocation)}</span>
+          <span class="events-chip">${escapeHTML(dateLabel)}</span>
+          <span class="events-chip">${escapeHTML(timeLabel)}</span>
+        </div>
+        <p>${escapeHTML(ev.description || '')}</p>
+        <button class="home-rsvp" type="button">RSVP</button>
+      </div>
+    </article>
+    `;
+    }).join('');
+      // re-attach event modal triggers if your page uses the same modal helper
+      if(typeof window.__attachEventModal === 'function'){
+        const modal = document.getElementById('event-modal');
+        const triggers = document.querySelectorAll('[data-event-trigger]');
+        window.__attachEventModal({ modal, triggers });
+      }
+    }catch(err){
+      console.error(err);
+      grid.innerHTML = '<div class="events-empty" style="grid-column:1/-1;padding:16px">Failed to load events.</div>';
+    }
+  })();
+  </script>
+
+  <!-- client: fetch events from backend and render into upcoming-events -->
+   <script>
+    (async function(){
+      const container = document.getElementById('upcoming-events');
+      if(!container) return;
+      const escapeHTML = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      try{
+        const res = await fetch('/api/events');
+        if(!res.ok) throw new Error('Network response not ok');
+        const allEvents = await res.json();
+        
+        // Filter to show only public (live) events
+        const events = allEvents.filter(ev => ev.is_public === true);
+        
+        if(!events || !events.length){
+          container.innerHTML = '<div>No upcoming events available.</div>';
+          return;
+        }
+        // Sort events by time and take the next 4 upcoming events
+        const now = new Date();
+        const upcoming = events
+          .filter(ev => new Date(ev.time) > now)
+          .sort((a, b) => new Date(a.time) - new Date(b.time))
+          .slice(0, 4);
+        container.innerHTML = upcoming.map(ev => {
+          const timeLabel = ev.time ? new Date(ev.time).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '';
+          return `
+          <article class="home-upcoming-card"
+            data-event-card data-event-trigger
+            data-event-title="${escapeHTML(ev.title)}"
+            data-event-time="${escapeHTML(timeLabel)}"
+            data-event-cost="${escapeHTML(ev.cost || '')}"
+            data-event-location="${escapeHTML(ev.location || '')}"
+            data-event-description="${escapeHTML(ev.description || '')}"
+            data-event-image="${escapeHTML(ev.image || '')}"
+            >
+            <h3>${escapeHTML(ev.title)}</h3>
+            <p>${escapeHTML(timeLabel)} · ${escapeHTML(ev.location || '')}</p>
+            <button class="home-rsvp" type="button">RSVP</button>
+          </article>
+          `;
+        }).join('');
+        // re-attach event modal triggers if your page uses the same modal helper
+        if(typeof window.__attachEventModal === 'function'){
+          const modal = document.getElementById('event-modal');
+          const triggers = document.querySelectorAll('[data-event-trigger]');
+          window.__attachEventModal({ modal, triggers });
+        }
+      }catch(err){
+        console.error(err);
+        container.innerHTML = '<div>Failed to load upcoming events.</div>';
+      }
+    })();
+   </script>
+</body>
+</html>
